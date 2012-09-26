@@ -20,6 +20,11 @@ void testApp::setup() {
 	setupRecording();
 
 	ofBackground(0, 0, 0);
+    
+    // open an outgoing connection to HOST:PORT
+	sender.setup(HOST, PORT);
+    
+    
 
 }
 
@@ -95,6 +100,39 @@ void testApp::update(){
 
 		// update tracking/recording nodes
 		if (isTracking) recordUser.update();
+        
+        /*
+        
+
+         */
+        int activeHands = recordHandTracker.getNumTrackedHands() ;
+        int trackedHandOrder = 0 ;
+        
+        ofxOscMessage m1;
+        m1.setAddress("/numCursors") ;
+        m1.addIntArg(activeHands) ;
+        sender.sendMessage(m1);
+        
+        if ( activeHands > 0 )
+        {
+            for ( int i = 0 ; i < recordHandTracker.getMaxNumHands() ; i++ )
+            {
+                
+                ofxTrackedHand * hand = recordHandTracker.getHand ( i ) ;
+                if ( hand != NULL && hand->isBeingTracked == true )
+                {
+                    ofxOscMessage m ; 
+                    m.setAddress("/cursor/"+ ofToString( trackedHandOrder ) + "/position");
+                    // cout << " x : " << hand->progPos.x << " , y : " << hand->progPos.y << endl ;
+                    m.addFloatArg( hand->progPos.x ) ;
+                    m.addFloatArg( hand->progPos.y );
+                    sender.sendMessage(m);
+                    trackedHandOrder++ ;
+                }
+            }
+        }
+        //I won't be using this for now, so I'm taking it out.
+        /*
 		if (isRecording) oniRecorder.update();
 
 		// demo getting pixels from user gen
@@ -102,8 +140,8 @@ void testApp::update(){
 			allUserMasks.setFromPixels(recordUser.getUserPixels(), recordUser.getWidth(), recordUser.getHeight(), OF_IMAGE_GRAYSCALE);
 			user1Mask.setFromPixels(recordUser.getUserPixels(1), recordUser.getWidth(), recordUser.getHeight(), OF_IMAGE_GRAYSCALE);
 			user2Mask.setFromPixels(recordUser.getUserPixels(2), recordUser.getWidth(), recordUser.getHeight(), OF_IMAGE_GRAYSCALE);
-		}
-
+		}*/
+            
 	} else {
 
 		// update all nodes
@@ -187,7 +225,7 @@ void testApp::draw(){
 	string statusCloudData	= (string)(isCPBkgnd ? "SHOW BACKGROUND" : (isTracking ? "SHOW USER" : "YOU NEED TO TURN ON TRACKING!!"));
 
 	string statusHardware;
-
+/*
 #ifdef TARGET_OSX // only working on Mac at the moment
 	ofPoint statusAccelerometers = hardware.getAccelerometers();
 	stringstream	statusHardwareStream;
@@ -201,7 +239,7 @@ void testApp::draw(){
 
 	statusHardware = statusHardwareStream.str();
 #endif
-
+*/
 	stringstream msg;
 
 	msg
@@ -220,9 +258,18 @@ void testApp::draw(){
 	<< "< / > : farThreshold          : " << ofToString(farThreshold) << endl
 	<< endl
 	<< "File  : " << oniRecorder.getCurrentFileName() << endl
-	<< "FPS   : " << ofToString(ofGetFrameRate()) << "  " << statusHardware << endl;
+	<< "FPS   : " << ofToString(ofGetFrameRate()) << endl;
 
 	ofDrawBitmapString(msg.str(), 20, 560);
+    
+    string buf;
+	buf = "sending osc messages to" + string(HOST) + ofToString(PORT);
+    float _y = 400 ; 
+	ofDrawBitmapString(buf, 10, 20 + _y );
+	ofDrawBitmapString("move the mouse to send osc message [/mouse/position <x> <y>]", 10, 50 + _y );
+	ofDrawBitmapString("click to send osc message [/mouse/button <button> <\"up\"|\"down\">]", 10, 65 + _y );
+	ofDrawBitmapString("press A to send osc message [/test 1 3.5 hello <time>]", 10, 80 + _y );
+
 
 }
 
@@ -275,6 +322,17 @@ void testApp::keyPressed(int key){
 
 	float smooth;
 
+    if(key == 'a' || key == 'A'){
+		ofxOscMessage m;
+		m.setAddress("/test");
+		m.addIntArg(1);
+		m.addFloatArg(3.5f);
+		m.addStringArg("hello");
+		m.addFloatArg(ofGetElapsedTimef());
+		sender.sendMessage(m);
+        
+	}
+    
 	switch (key) {
 #ifdef TARGET_OSX // only working on Mac at the moment
 		case 357: // up key
@@ -284,6 +342,8 @@ void testApp::keyPressed(int key){
 			hardware.setTiltAngle(hardware.tilt_angle--);
 			break;
 #endif
+            
+            
 		case 's':
 		case 'S':
 			if (isRecording) {

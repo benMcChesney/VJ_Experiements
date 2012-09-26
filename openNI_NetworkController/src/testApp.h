@@ -5,10 +5,16 @@
 
 #include "ofxOpenNI.h"
 #include "ofMain.h"
+#include "ofxOsc.h"
+
+#define HOST "localhost"
+#define PORT 12345
 
 class testApp : public ofBaseApp{
 
 public:
+    
+    
 	void setup();
 	void update();
 	void draw();
@@ -55,6 +61,10 @@ public:
 	ofImage				allUserMasks, user1Mask, user2Mask, depthRangeMask;
 
 	float				filterFactor;
+    
+    
+    //OSC Networking
+    ofxOscSender sender;
 
 };
 
