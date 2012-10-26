@@ -178,13 +178,14 @@ void testApp::draw(){
 		recordDepth.draw(0,0,640,480);
 		recordImage.draw(640, 0, 640, 480);
 
-		depthRangeMask.draw(0, 480, 320, 240);	// can use this with openCV to make masks, find contours etc when not dealing with openNI 'User' like objects
+        
+		//depthRangeMask.draw(0, 480, 320, 240);	// can use this with openCV to make masks, find contours etc when not dealing with openNI 'User' like objects
 
 		if (isTracking) {
 			recordUser.draw();
 
-			if (isMasking) drawMasks();
-			if (isCloud) drawPointCloud(&recordUser, 1);	// 0 gives you all point clouds; use userID to see point clouds for specific users
+		//	if (isMasking) drawMasks();
+	//		if (isCloud) drawPointCloud(&recordUser, 1);	// 0 gives you all point clouds; use userID to see point clouds for specific users
 
 		}
 		if (isTrackingHands)
@@ -210,6 +211,8 @@ void testApp::draw(){
 
 	glPopMatrix();
 
+    
+    
 	ofSetColor(255, 255, 0);
 
 	string statusPlay		= (string)(isLive ? "LIVE STREAM" : "PLAY STREAM");
@@ -243,19 +246,13 @@ void testApp::draw(){
 	stringstream msg;
 
 	msg
-	<< "    s : start/stop recording  : " << statusRec << endl
-	<< "    p : playback/live streams : " << statusPlay << endl
+    << "sending osc messages to: " + string(HOST) + ":" + ofToString(PORT) << endl
 	<< "    t : skeleton tracking     : " << statusSkeleton << endl
 	<< "( / ) : smooth skely (openni) : " << statusSmoothSkel << endl
 	<< "    h : hand tracking         : " << statusHands << endl
 	<< "    f : filter hands (custom) : " << statusFilter << endl
 	<< "[ / ] : filter hands factor   : " << statusFilterLvl << endl
 	<< "; / ' : smooth hands (openni) : " << statusSmoothHand << endl
-	<< "    m : drawing masks         : " << statusMask << endl
-	<< "    c : draw cloud points     : " << statusCloud << endl
-	<< "    b : cloud user data       : " << statusCloudData << endl
-	<< "- / + : nearThreshold         : " << ofToString(nearThreshold) << endl
-	<< "< / > : farThreshold          : " << ofToString(farThreshold) << endl
 	<< endl
 	<< "File  : " << oniRecorder.getCurrentFileName() << endl
 	<< "FPS   : " << ofToString(ofGetFrameRate()) << endl;
@@ -266,9 +263,9 @@ void testApp::draw(){
 	buf = "sending osc messages to" + string(HOST) + ofToString(PORT);
     float _y = 400 ; 
 	ofDrawBitmapString(buf, 10, 20 + _y );
-	ofDrawBitmapString("move the mouse to send osc message [/mouse/position <x> <y>]", 10, 50 + _y );
-	ofDrawBitmapString("click to send osc message [/mouse/button <button> <\"up\"|\"down\">]", 10, 65 + _y );
-	ofDrawBitmapString("press A to send osc message [/test 1 3.5 hello <time>]", 10, 80 + _y );
+	//ofDrawBitmapString("move the mouse to send osc message [/mouse/position <x> <y>]", 10, 50 + _y );
+	//ofDrawBitmapString("click to send osc message [/mouse/button <button> <\"up\"|\"down\">]", 10, 65 + _y );
+	//ofDrawBitmapString("press A to send osc message [/test 1 3.5 hello <time>]", 10, 80 + _y );
 
 
 }

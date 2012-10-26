@@ -1,0 +1,101 @@
+<Widget>
+    <Kind>4</Kind>
+    <Name>CENTER OFFSET</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>GLOBAL EXTRUSION</Name>
+    <Value>733.722</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>MAX EXTRUSION</Name>
+    <Value>134.872</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>BAR WIDTH</Name>
+    <Value>4.83333</Value>
+</Widget>
+<Widget>
+    <Kind>11</Kind>
+    <Name>X + Y</Name>
+    <XValue>0</XValue>
+    <YValue>364.8</YValue>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>DRAW FILL</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>DRAW BOTH SIDES</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>NOISE TIME MULTIPLIER</Name>
+    <Value>8.8235</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>NOISE STRENGTH</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>NOISE INDEX MULTIPLIER</Name>
+    <Value>2.66667</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>AMPLITUDE MULTIPLIER</Name>
+    <Value>16.2393</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>HUE</Name>
+    <Value>132.308</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>SATURATION</Name>
+    <Value>303.077</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>BRIGHTNESS</Name>
+    <Value>212.308</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>HUE FFT MULTIPLIER</Name>
+    <Value>871.795</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>AMPLITUDE DIFF MULTIPLIER</Name>
+    <Value>273.504</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>CLEAR ALPHA</Name>
+    <Value>255</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>GLOBAL AMPLITUDE SCALE</Name>
+    <Value>931.624</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>INTERPOLATE TIME</Name>
+    <Value>0.0106838</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>HUE TIME MULTIPLIER</Name>
+    <Value>0</Value>
+</Widget>
