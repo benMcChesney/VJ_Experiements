@@ -6,23 +6,23 @@
 <Widget>
     <Kind>4</Kind>
     <Name>GLOBAL EXTRUSION</Name>
-    <Value>733.722</Value>
+    <Value>267.444</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>MAX EXTRUSION</Name>
-    <Value>216.239</Value>
+    <Value>285.641</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>BAR WIDTH</Name>
-    <Value>11.1667</Value>
+    <Value>7.5</Value>
 </Widget>
 <Widget>
     <Kind>11</Kind>
     <Name>X + Y</Name>
-    <XValue>0</XValue>
-    <YValue>364.8</YValue>
+    <XValue>188.171</XValue>
+    <YValue>396.8</YValue>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -72,30 +72,30 @@
 <Widget>
     <Kind>4</Kind>
     <Name>HUE FFT MULTIPLIER</Name>
-    <Value>1000</Value>
+    <Value>217.949</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>AMPLITUDE DIFF MULTIPLIER</Name>
-    <Value>273.504</Value>
+    <Value>136.752</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>CLEAR ALPHA</Name>
-    <Value>255</Value>
+    <Value>18.5256</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>GLOBAL AMPLITUDE SCALE</Name>
-    <Value>931.624</Value>
+    <Value>264.957</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>INTERPOLATE TIME</Name>
-    <Value>0.0106838</Value>
+    <Value>0.00213675</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>HUE TIME MULTIPLIER</Name>
-    <Value>0</Value>
+    <Value>0.833333</Value>
 </Widget>

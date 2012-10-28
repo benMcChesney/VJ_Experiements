@@ -63,11 +63,25 @@ void testApp::setup()
     // {
     
     
+    
+    
     hueTimeMultiplier = 1.0f ;
     
     float dim = 24;
     float xInit = OFX_UI_GLOBAL_WIDGET_SPACING;
     float length = 250-xInit;
+    
+    fftControls = new ofxUICanvas(0, 0, ofGetWidth(), ofGetHeight());
+    fftControls->addWidgetDown(new ofxUILabel("FFT CONTROLS", OFX_UI_FONT_MEDIUM));
+    ////gui.addSlider ( string title , float targetFloat , float minValue, float maxValue ) ;
+    //    fftGUI->addWidgetDown(new ofxUIRangeSlider(length-xInit,dim, 0.0, len-2 , 0 , len-1 , "MAX RANGE"));
+    fftControls->addWidgetDown(new ofxUIRangeSlider(length-xInit,dim, 0.0, len-2 , 5 , 10 , "FFT RANGE"));
+    fftControls->addWidgetRight(new ofxUISlider(length-xInit,dim , 0.0f , 15.0f , fftGraphScale , "FFT GRAPH SCALE"  ) ) ;
+    
+    ofAddListener(fftControls->newGUIEvent,this,&testApp::fftControlsEvent);
+    fftControls->loadSettings( "GUI/FFT_Controls.xml") ;
+
+    
     
     fftGUI = new ofxUICanvas(0, 0, ofGetWidth(), ofGetHeight());
     
@@ -102,23 +116,15 @@ void testApp::setup()
     fftGUI->addWidgetRight(new ofxUISlider(length-xInit,dim , 0.0f , 1000.0f , amplitudeScale , "GLOBAL AMPLITUDE SCALE" ) ) ;
     
     fftGUI->addWidgetDown(new ofxUISlider(length-xInit,dim , 0.0f , 0.5f , radialFft.interpolateTime , "INTERPOLATE TIME" ) ) ;
-    fftGUI->addWidgetDown(new ofxUISlider(length-xInit,dim , 0.0f , 0.5f , hueTimeMultiplier , "HUE TIME MULTIPLIER" ) ) ;
+    fftGUI->addWidgetDown(new ofxUISlider(length-xInit,dim , 0.0f , 5.0f , hueTimeMultiplier , "HUE TIME MULTIPLIER" ) ) ;
   
     ofAddListener(fftGUI->newGUIEvent,this,&testApp::fftGUIEvent);
     fftGUI->loadSettings( "GUI/FFT_0.xml") ;
    
+    fftGUI->disable() ;
+    fftControls->disable() ; 
     
-    
-    fftControls = new ofxUICanvas(0, 0, ofGetWidth(), ofGetHeight());
-    fftControls->addWidgetDown(new ofxUILabel("FFT CONTROLS", OFX_UI_FONT_MEDIUM));
-    ////gui.addSlider ( string title , float targetFloat , float minValue, float maxValue ) ;
-    //    fftGUI->addWidgetDown(new ofxUIRangeSlider(length-xInit,dim, 0.0, len-2 , 0 , len-1 , "MAX RANGE"));
-    fftControls->addWidgetDown(new ofxUIRangeSlider(length-xInit,dim, 0.0, len-2 , 5 , 10 , "FFT RANGE"));
-    fftControls->addWidgetRight(new ofxUISlider(length-xInit,dim , 0.0f , 15.0f , fftGraphScale , "FFT GRAPH SCALE"  ) ) ;
-    
-    ofAddListener(fftControls->newGUIEvent,this,&testApp::fftControlsEvent);
-    fftControls->loadSettings( "GUI/FFT_Controls.xml") ;
-    
+       
     ofSetFrameRate( 60 ) ;
     ofSetCircleResolution( 180 ) ;
     
@@ -150,7 +156,7 @@ void testApp::fftControlsEvent(ofxUIEventArgs &e)
     }
     //fftControls->loadSettings( "GUI/FFT_Controls.xml") ;
     
-    fftGUI->saveSettings("GUI/FFT_Controls.xml" ) ;
+    fftControls->saveSettings("GUI/FFT_Controls.xml" ) ;
      
 }
 void testApp::fftGUIEvent(ofxUIEventArgs &e)
@@ -289,6 +295,13 @@ void testApp::fftGUIEvent(ofxUIEventArgs &e)
         radialFft.interpolateTime = slider->getScaledValue() ;
     }
     
+    if ( name == "HUE TIME MULTIPLIER" )
+    {
+        ofxUISlider *slider = (ofxUISlider *) e.widget;
+        hueTimeMultiplier = slider->getScaledValue() ;
+    }
+    
+    // fftGUI->addWidgetDown(new ofxUISlider(length-xInit,dim , 0.0f , 0.5f , hueTimeMultiplier , "HUE TIME MULTIPLIER" ) ) ;
     /*
      fftGUI->addWidgetDown(new ofxUISlider(length-xInit,dim , 0.0f , 0.5f , radialFft.interpolateTime , "INTERPOLATE TIME" ) ) ;
      
@@ -305,8 +318,13 @@ void testApp::update()
     //Get amplitudes and pass them on to visuals
     float * amplitudes = fft->getAmplitude() ;
     
-    if ( ofGetElapsedTimef() > 4.0f )
-        radialFft.update( amplitudes ) ;
+    //float * bufferedAmplitudes = new float[bufferSize] ;
+    //unsigned char * pRawPixels = iisu->sceneImage.getRAW() ;
+    //memcpy prevents it from having read/write at the same time issues
+    //memcpy(rawPixels, pRawPixels, totalPixels);
+    //memcpy( bufferedAmplitudes, amplitudes, bufferSize ) ;
+    
+    radialFft.update( amplitudes ) ;
     //for ( int i = 0 ; i < visuals.size() ; i++ )
     //{
     //    visuals[i].update( amplitudes ) ;
@@ -346,14 +364,14 @@ void testApp::draw()
     
     screenFbo.draw( 0 , 0 ) ;
     
-    radialFft.draw( ) ;
+    radialFft.draw( hueTimeMultiplier ) ;
 
      
      screenFbo.end() ;
     
     ofSetColor( 255 , 255  ,255 , 255 ) ;
     screenFbo.draw( 0 , 0 ) ;
-    /*
+    
     
     if ( bGuiEnabled == true )
     {
@@ -423,10 +441,10 @@ void testApp::draw()
          
          for(int i = 0; i < NUM_MSG_STRINGS; i++){
          ofDrawBitmapString(msg_strings[i], 10, 40 + 15 * i);
-         }
+         }*/
     }
     
-    */
+    
     
     
 }
