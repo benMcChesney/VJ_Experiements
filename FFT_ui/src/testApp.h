@@ -6,11 +6,14 @@
 #include "RadialFft.h"
 #include "ofxUI.h"
 #include "Tweenzor.h"
+#include "ofxOsc.h"
 
 #define MIC 0
 #define NOISE 1
 #define SINE 2
 #define ANIMATE 3
+#define PORT 12345
+#define HOST "localhost"
 
 class testApp : public ofBaseApp{
 	public:
@@ -60,5 +63,9 @@ class testApp : public ofBaseApp{
         void disableAllofxUI( ) ;
     
         float fftGraphScale ; 
-        float hueTimeMultiplier ; 
+        float hueTimeMultiplier ;
+    
+        //Send FFT info over OSC
+        ofxOscSender sender;
+        ofxOscMessage message ; 
 };

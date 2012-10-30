@@ -1,11 +1,11 @@
 <Widget>
     <Kind>6</Kind>
     <Name>FFT RANGE</Name>
-    <HighValue>96.9872</HighValue>
-    <LowValue>0</LowValue>
+    <HighValue>26.1538</HighValue>
+    <LowValue>2.17949</LowValue>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>FFT GRAPH SCALE</Name>
-    <Value>10.0641</Value>
+    <Value>3.46154</Value>
 </Widget>

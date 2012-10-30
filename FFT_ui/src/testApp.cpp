@@ -95,9 +95,9 @@ void testApp::setup()
     fftGUI->addWidgetDown(new ofxUISlider(length-xInit,dim , 1.0f , 40.0f , radialFft.globalBarWidth , "BAR WIDTH" ) ) ;
     
     fftGUI->addWidgetDown(new ofxUI2DPad(length-xInit,120, ofPoint( 0 , ofGetWidth() ) , ofPoint ( 0 , ofGetHeight() )  , radialFft.position  , "X + Y"));
-    
-    fftGUI->addWidgetRight(new ofxUIToggle( 60 , 50 , radialFft.doFill , "DRAW FILL" ) ) ;
-    fftGUI->addWidgetDown(new ofxUIToggle( 60 , 50 , radialFft.drawBothSides , "DRAW BOTH SIDES" ) ) ;
+    fftGUI->addWidgetDown(new ofxUILabel(" ", OFX_UI_FONT_LARGE));
+    fftGUI->addWidgetRight(new ofxUIToggle( 50 , 50 , radialFft.doFill , "DRAW FILL" ) ) ;
+    fftGUI->addWidgetRight(new ofxUIToggle( 50 , 50 , radialFft.drawBothSides , "DRAW BOTH SIDES" ) ) ;
     
     fftGUI->addWidgetDown(new ofxUISlider(length-xInit,dim , 0.1f , 15.0f , radialFft.noiseTimeMultiplier , "NOISE TIME MULTIPLIER" ) ) ;
     fftGUI->addWidgetDown(new ofxUISlider(length-xInit,dim , 0.0f , 400.0f , radialFft.noiseStrength , "NOISE STRENGTH" ) ) ;
@@ -134,6 +134,9 @@ void testApp::setup()
     screenFbo.end() ;
     
     ofSetVerticalSync( true ) ;
+    
+    //OSC
+    sender.setup(HOST, PORT);
 }
 
 void testApp::fftControlsEvent(ofxUIEventArgs &e)
@@ -325,79 +328,53 @@ void testApp::update()
     //memcpy( bufferedAmplitudes, amplitudes, bufferSize ) ;
     
     radialFft.update( amplitudes ) ;
-    //for ( int i = 0 ; i < visuals.size() ; i++ )
-    //{
-    //    visuals[i].update( amplitudes ) ;
-    //}
     
     //Update OSC
+    message.clear() ;
+    message.setAddress("/sumAmplitude");
+    message.addFloatArg( radialFft.sumAmplitude );
+    message.addFloatArg( radialFft.sumAmplitude * amplitudeScale );
+    sender.sendMessage( message );
 }
 
 
 void testApp::draw()
 {
-    //  if ( ofGetElapsedTimef() < 30 )
-    //      return ;
-   
-    
-    
-    
-    
-    //return ;
-    
-    
     ofEnableAlphaBlending() ;
-        screenFbo.begin() ;
-       // ofSetColor( 0 ,  0, 0 , clearAlpha ) ;
-        //ofRect( 0 , 0, ofGetWidth() , ofGetHeight() ) ;
-     
+    screenFbo.begin() ;
     
-       // ofEnableSmoothing() ;
-    /*
-     for ( int i = 0 ; i < visuals.size() ; i++ )
-     {
-         visuals[i].draw( ) ;
-     }
-    */
-//    ofSetColor( 0 ,  0, 0 , clearAlpha ) ;
-    ofSetColor( 0 , 0, 0, clearAlpha ) ; 
-    
-    screenFbo.draw( 0 , 0 ) ;
-    
-    radialFft.draw( hueTimeMultiplier ) ;
-
-     
-     screenFbo.end() ;
-    
+        ofSetColor( 0 , 0, 0, clearAlpha ) ; 
+        screenFbo.draw( 0 , 0 ) ;
+        radialFft.draw( hueTimeMultiplier ) ;
+    screenFbo.end() ;
     ofSetColor( 255 , 255  ,255 , 255 ) ;
     screenFbo.draw( 0 , 0 ) ;
-    
-    
     if ( bGuiEnabled == true )
     {
         ofSetColor ( 255 , 255 , 255 )  ;
-        
-        //radialFft.draw( ) ;
-        
-        //gui.draw() ;
         ofPushMatrix() ;
-        ofTranslate( 15 , ofGetHeight() +- 75 ) ;
-        ofDrawBitmapString( "G : Toggle GUI " , 0 , 0 ) ;
-        ofTranslate( 0 , 15 ) ;
-        ofDrawBitmapString( "A , M , N , S change the FFT Input " , 0 , 0 ) ;
-        string curInput ;
-        if (mode == MIC) {	curInput = "Microphone" ; }
-        else if (mode == NOISE) { curInput = "Noise" ; }
-        else if (mode == SINE) { curInput = "Mouse" ;}
-        else if ( mode == ANIMATE ) {  curInput = "Time" ; }
-        ofTranslate( 0 , 15 ) ;
-        ofDrawBitmapString( "Current Input is: " + curInput , 0 , 0 ) ;
+            ofTranslate( 700 , ofGetHeight() +- 125 ) ;
+            ofDrawBitmapString( "G : Toggle GUI " , 0 , 0 ) ;
+            ofTranslate( 0 , 15 ) ;
+            ofDrawBitmapString( "A , M , N , S change the FFT Input " , 0 , 0 ) ;
+            string curInput ;
+            if (mode == MIC) {	curInput = "Microphone" ; }
+            else if (mode == NOISE) { curInput = "Noise" ; }
+            else if (mode == SINE) { curInput = "Mouse" ;}
+            else if ( mode == ANIMATE ) {  curInput = "Time" ; }
+            ofTranslate( 0 , 15 ) ;
+            ofDrawBitmapString( "Current Input is: " + curInput , 0 , 0 ) ;
+            ofTranslate( 0 , 15 ) ;
+            string status = "OSC @ " + ofToString( HOST ) + " PORT:" + ofToString( PORT ) +"\n"+message.getAddress()+ ":"+ofToString( message.getArgAsFloat(0) ) + "," + ofToString( message.getArgAsFloat(1) ) ;
+        ofSetColor( 255 , 255 , 255 ) ;
+        ofDrawBitmapString( status , 0 , 0 ) ;
+        
         ofPopMatrix() ;
         
         int graphYOffset = 10 ;
         ofSetHexColor(0xffffff);
         ofPushMatrix();
-        ofTranslate( ( ofGetWidth() +- bufferSize )/2 , ofGetHeight() + plotHeight * -3 + -3 * graphYOffset );
+        ofTranslate( 50 , ofGetHeight() + plotHeight * -3 + -3 * graphYOffset );
         ofDrawBitmapString("Time Domain", 0, 0);
         //Draw Range
         const float binLength = (float)(fft->getBinSize()) ;
@@ -445,8 +422,7 @@ void testApp::draw()
     }
     
     
-    
-    
+   
 }
 
 
@@ -483,7 +459,7 @@ void testApp::audioReceived(float* input, int bufferSize, int nChannels) {
 	int spectrogramWidth = (int) spectrogram.getWidth();
 	unsigned char* pixels = spectrogram.getPixels();
 	for(int i = 0; i < fft->getBinSize(); i++)
-		pixels[i * spectrogramWidth + spectrogramOffset] = (unsigned char) (255. * curFft[i]);
+		pixels[i * spectrogramWidth + spectrogramOffset] = (unsigned char) (255.0f * curFft[i]);
 	spectrogramOffset = (spectrogramOffset + 1) % spectrogramWidth;
 }
 

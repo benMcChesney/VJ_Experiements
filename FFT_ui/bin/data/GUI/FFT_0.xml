@@ -1,12 +1,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CENTER OFFSET</Name>
-    <Value>0</Value>
+    <Value>7.69231</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>GLOBAL EXTRUSION</Name>
-    <Value>267.444</Value>
+    <Value>298.188</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -16,28 +16,28 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BAR WIDTH</Name>
-    <Value>7.5</Value>
+    <Value>19</Value>
 </Widget>
 <Widget>
     <Kind>11</Kind>
     <Name>X + Y</Name>
-    <XValue>188.171</XValue>
-    <YValue>396.8</YValue>
+    <XValue>70.0171</XValue>
+    <YValue>518.4</YValue>
 </Widget>
 <Widget>
     <Kind>2</Kind>
     <Name>DRAW FILL</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
     <Name>DRAW BOTH SIDES</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>NOISE TIME MULTIPLIER</Name>
-    <Value>8.8235</Value>
+    <Value>0.1</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -47,12 +47,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>NOISE INDEX MULTIPLIER</Name>
-    <Value>2.66667</Value>
+    <Value>0.153846</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>AMPLITUDE MULTIPLIER</Name>
-    <Value>16.2393</Value>
+    <Value>15.0427</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -62,40 +62,40 @@
 <Widget>
     <Kind>4</Kind>
     <Name>SATURATION</Name>
-    <Value>303.077</Value>
+    <Value>244.615</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>BRIGHTNESS</Name>
-    <Value>212.308</Value>
+    <Value>360</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>HUE FFT MULTIPLIER</Name>
-    <Value>217.949</Value>
+    <Value>12.8205</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>AMPLITUDE DIFF MULTIPLIER</Name>
-    <Value>136.752</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>CLEAR ALPHA</Name>
-    <Value>18.5256</Value>
+    <Value>255</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>GLOBAL AMPLITUDE SCALE</Name>
-    <Value>264.957</Value>
+    <Value>320.513</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>INTERPOLATE TIME</Name>
-    <Value>0.00213675</Value>
+    <Value>0.0106838</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>HUE TIME MULTIPLIER</Name>
-    <Value>0.833333</Value>
+    <Value>0</Value>
 </Widget>
