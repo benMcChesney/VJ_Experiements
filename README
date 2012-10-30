@@ -1,0 +1,23 @@
+/* 
+
+	VJ Experiments
+	
+	Originally written to explore some systems to react to music or to dancers for a performance.
+	Written in Open Frameworks 0071.
+*/
+
+Community addons required:
+
+ofxTweenzor
+ofxSyphon
+ofxUI
+ofxKinect
+
+/*
+	Apps
+*/
+FFT_UI - sends average FFT data over OSC
+mouseOscController - mouse osc signals
+ofxKinectPointCloud - working with point cloud data, saturation, and camera movement
+openNI_NetworkController - sends cursor data over OSC and potentially other data
+VJ_DisplayApp - using a simple GLSL shader , listens to openNI_NetworkController, current still does it's own FFT
